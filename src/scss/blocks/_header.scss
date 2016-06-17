@@ -1,0 +1,27 @@
+.header {
+  @include container-width;
+
+  margin: 1rem auto 2rem;
+  padding: .5rem;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  display: none;
+
+  @media ( max-width: $bp-tablet ) {
+    flex-direction: column;
+  }
+
+  background: #EEE;
+  border: 1px solid rgba(0,0,0,.1);
+}
+
+.nav {
+  display: none;
+}
+  .nav__item {
+    display: inline-block;
+    margin: 0 .5rem;
+  }

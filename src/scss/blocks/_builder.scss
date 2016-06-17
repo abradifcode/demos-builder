@@ -1,0 +1,163 @@
+$svgW: 500px;
+$svgH: 300px;
+
+$controlW: $svgW;
+$controlH: 40px;
+
+$space: 20px;
+
+$colors: purple, crimson, orangered, yellowgreen, skyblue, steelblue, olive, teal, indigo;
+
+@mixin outline( $counter: 1 ) {
+  outline: 2px solid nth( $colors, $counter );
+}
+
+@mixin valnMid {
+  &:before {
+    content: ' ';
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+    @include outline(8);
+  }
+}
+
+
+HTML, BODY {
+  height: 100%;
+  }
+
+BODY {
+  background:
+    linear-gradient( #EEE 1px, transparent 2px),
+    linear-gradient( to right, #EEE 1px, transparent 2px);
+  background-size: 1em 1em;
+  }
+
+/* Layout */
+
+.demo {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  width: $svgW + $controlH + $space;
+  height: $svgH + $controlH + $space;
+  text-align: center;
+  white-space: nowrap;
+  font-family: Arial, sans-serif;
+
+  @include outline(2);
+
+  &--has-buttons {
+    height: $svgH + $controlH * 2 + $space * 2;
+  }
+}
+
+.demo__content {
+  position: relative;
+  height: $svgH + $controlH + $space;
+
+  @include outline(3);
+
+  &:after {
+    content: '';
+    display: table;
+    clear: both;
+    }
+  }
+
+.svg {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: $svgW;
+  height: $svgH;
+  box-sizing: border-box;
+  border: 2px solid #333;
+
+  @include outline(4);
+  }
+
+/* Controls */
+
+.controls {
+
+  &__title {
+    display: inline-block;
+    vertical-align: middle;
+    margin-top: 0;
+    margin-bottom: 0;
+    font-weight: bold;
+    }
+  }
+
+  .demo--has-buttons .controls--buttons {
+    @include valnMid;
+    height: $controlH;
+    margin-bottom: $space;
+  }
+
+  .button {
+    padding: .3rem .5rem;
+    vertical-align: middle;
+    border: 0;
+    background: #BBB;
+    cursor: pointer;
+    font-size: 1rem;
+    text-shadow: 0 0 1px rgba(0, 0, 0, .75);
+    color: #FFF;
+    }
+
+  .controls--buttons {
+    font-size: 1rem;
+
+    @include outline(5);
+
+    }
+    .controls--buttons .button {
+      margin-left: .5rem;
+
+      &--current {
+         background: crimson;
+        }
+      }
+
+  .controls--ranges {
+    position: absolute;
+    width: 100%;
+
+    @include outline(6);
+    }
+    .range {
+      position: absolute;
+      text-align: center;
+
+      &--hor {
+        right: 0;
+        width: $svgW;
+
+        @include outline(7);
+        }
+
+      &--vert {
+        top: $controlH + $space;
+        width: $svgH;
+        transform-origin: 0 0;
+        transform: rotate(-90deg) translateX(-100%);
+
+        @include outline(8);
+        }
+
+        &--vert .range__input {
+          transform: rotate(180deg);
+          }
+    }
+
+    .range__input {
+      width: 100%;
+      margin: auto;
+      cursor: pointer;
+    }

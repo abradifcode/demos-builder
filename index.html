@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Title</title>
+    <link rel="stylesheet" href="./assets/css/styles.css">
+</head>
+<body>
+    <header class="header">
+      <h1 class="title">Demos builder</h1>
+    
+      <nav class="nav">
+        <a class="nav__item" href="#">Home</a>
+        <a class="nav__item" href="#">Photo</a>
+        <a class="nav__item" href="#">Contacts</a>
+      </nav>
+    </header>
+    
+
+    <div class="container">
+      <main class="main">
+        <div class="demo">
+        
+          <div class="controls controls--buttons"></div>
+        
+          <div class="demo__content">
+        
+            <div class="controls controls--ranges"></div>
+        
+            <svg class="svg">
+        
+              <symbol id="s-mask">
+                <rect
+                    width="100%" height="100%"
+                    fill="#555"></rect>
+                <g stroke="gray" stroke-width="12" fill="white">
+                  <circle r="30%" cx="50%" cy="50%"></circle>
+                </g>
+              </symbol>
+        
+              <mask id="mask"
+                  x="0" y="0">
+                <use xlink:href="#s-mask"></use>
+              </mask>
+        
+              <pattern id="pattern"
+                    viewBox="0 0 470 400"
+                width="470" height="400" patternUnits="userSpaceOnUse">
+                <path d="M77,0 L234,0 L155.5,400 L77,0 Z" fill="#FF9F00"></path>
+                  <polygon fill="#EE2A42" points="77.5 0 156 400 -1 400 "></polygon>
+                  <path d="M-79,0 L78,0 L-0.5,400 L-79,0 Z" fill="#A506CD"></path>
+                  <path d="M233,0 L390,0 L311.5,400 L233,0 Z" fill="#7ED321"></path>
+                  <polygon fill="#F8E81C" points="233.5 0 312 400 155 400 "></polygon>
+                  <polygon fill="#049BD8" points="389.5 0 468 400 311 400 "></polygon>
+                  <path d="M389,0 L546,0 L467.5,400 L389,0 Z" fill="#A506CD"></path>
+              </pattern>
+        
+              <symbol id="s-coords">
+                <g stroke-dasharray="10 5">
+                  <line x1="50%" y1="0" x2="50%" y2="100%" />
+                  <line y1="50%" x1="0" y2="50%" x2="100%" />
+                </g>
+              </symbol>
+        
+              <use xlink:href="#s-coords" stroke="#333"></use>
+        
+              <g>
+                <rect width="80%" height="90%"
+                    fill="steelblue" fill-opacity=".3"
+                    stroke="steelblue" stroke-width="3"></rect>
+        
+                <rect mask="url(#mask)"
+                    width="80%" height="90%"
+                    fill="url(#pattern)"></rect>
+        
+                <use xlink:href="#s-coords" width="80%" height="90%" stroke="steelblue"></use>
+              </g>
+        
+            </svg>
+          </div>
+        
+        </div>
+        
+      </main>
+      <aside class="aside">
+        <!-- Aside content -->
+      </aside>
+    </div>
+
+    <script src="./assets/js/tinylib/tinylib.js"></script>
+    <script src="./assets/js/config.js"></script>
+    <script src="./assets/js/demos-builder.js"></script>
+</body>
+</html>
