@@ -1,7 +1,6 @@
 $svgW: 500px;
 $svgH: 300px;
 
-$controlW: $svgW;
 $controlH: 40px;
 
 $space: 20px;
@@ -18,20 +17,19 @@ $colors: purple, crimson, orangered, yellowgreen, skyblue, steelblue, olive, tea
     display: inline-block;
     height: 100%;
     vertical-align: middle;
-    @include outline(8);
   }
 }
 
 HTML, BODY {
   height: 100%;
-  }
+}
 
 BODY {
   background:
     linear-gradient( #EEE 1px, transparent 2px),
     linear-gradient( to right, #EEE 1px, transparent 2px);
   background-size: 1em 1em;
-  }
+}
 
 /* Layout
 ------------------------------ */
@@ -44,16 +42,12 @@ BODY {
   text-align: center;
   white-space: nowrap;
   font-family: Arial, sans-serif;
-
-  @include outline(2);
 }
 
 .demo__content {
   position: relative;
   width: $svgW;
   height: $svgH;
-
-  @include outline(3);
 
   &--svg-only {
     /* default */
@@ -84,9 +78,7 @@ BODY {
   height: $svgH;
   box-sizing: border-box;
   border: 2px solid #333;
-
-  @include outline(4);
-  }
+}
 
 /* Controls
 ------------------------------ */
@@ -99,22 +91,21 @@ BODY {
     margin-top: 0;
     margin-bottom: 0;
     font-weight: bold;
-    }
   }
+}
 
   .controls--buttons {
     @include valnMid;
     height: $controlH;
     margin-bottom: $space;
     font-size: 1rem;
-
-    @include outline(5);
   }
 
 /* Buttons
 ------------------------------ */
 
 .button {
+  margin-left: .5rem;
   padding: .3rem .5rem;
   vertical-align: middle;
   border: 0;
@@ -123,50 +114,43 @@ BODY {
   font-size: 1rem;
   text-shadow: 0 0 1px rgba(0, 0, 0, .75);
   color: #FFF;
+
+  &--current {
+    background: crimson;
   }
-
-  .controls--buttons .button {
-    margin-left: .5rem;
-
-    &--current {
-       background: crimson;
-      }
-    }
+}
 
 /* Ranges
 ------------------------------ */
-  .controls--ranges {
+
+.controls--ranges {
+  position: absolute;
+  width: 100%;
+}
+  .range {
     position: absolute;
+    height: $controlH;
+    text-align: center;
+
+    &--hor {
+      right: 0;
+      width: $svgW;
+    }
+
+    &--vert {
+      top: $controlH + $space/2;
+      width: $svgH;
+      transform-origin: 0 0;
+      transform: rotate(-90deg) translateX(-100%);
+    }
+
+      &--vert .range__input {
+        transform: rotate(180deg);
+      }
+  }
+
+  .range__input {
     width: 100%;
-    }
-    .range {
-      position: absolute;
-      height: $controlH;
-      text-align: center;
-
-      &--hor {
-        right: 0;
-        width: $svgW;
-
-        @include outline(7);
-        }
-
-      &--vert {
-        top: $controlH + $space/2;
-        width: $svgH;
-        transform-origin: 0 0;
-        transform: rotate(-90deg) translateX(-100%);
-
-        @include outline(8);
-        }
-
-        &--vert .range__input {
-          transform: rotate(180deg);
-          }
-    }
-
-    .range__input {
-      width: 100%;
-      margin: auto;
-      cursor: pointer;
-    }
+    margin: auto;
+    cursor: pointer;
+  }
