@@ -445,32 +445,35 @@ BODY {
   background: linear-gradient(#EEE 1px, transparent 2px), linear-gradient(to right, #EEE 1px, transparent 2px);
   background-size: 1em 1em; }
 
-/* Layout */
+/* Layout
+------------------------------ */
 .demo {
   position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  margin: auto;
-  width: 560px;
-  height: 360px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   text-align: center;
   white-space: nowrap;
   font-family: Arial, sans-serif;
   outline: 2px solid crimson; }
-  .demo--has-buttons {
-    height: 420px; }
 
 .demo__content {
   position: relative;
-  height: 360px;
+  width: 500px;
+  height: 300px;
   outline: 2px solid orangered; }
-  .demo__content:after {
-    content: '';
-    display: table;
-    clear: both; }
+  .demo__content--svg-only {
+    /* default */ }
+  .demo__content--left-range {
+    width: 550px; }
+  .demo__content--top-range {
+    height: 350px; }
+  .demo__content--both-ranges {
+    width: 550px;
+    height: 350px; }
 
+/* SVG
+------------------------------ */
 .svg {
   position: absolute;
   right: 0;
@@ -481,7 +484,8 @@ BODY {
   border: 2px solid #333;
   outline: 2px solid yellowgreen; }
 
-/* Controls */
+/* Controls
+------------------------------ */
 .controls__title {
   display: inline-block;
   vertical-align: middle;
@@ -489,16 +493,20 @@ BODY {
   margin-bottom: 0;
   font-weight: bold; }
 
-.demo--has-buttons .controls--buttons {
+.controls--buttons {
   height: 40px;
-  margin-bottom: 20px; }
-  .demo--has-buttons .controls--buttons:before {
+  margin-bottom: 20px;
+  font-size: 1rem;
+  outline: 2px solid skyblue; }
+  .controls--buttons:before {
     content: ' ';
     display: inline-block;
     height: 100%;
     vertical-align: middle;
     outline: 2px solid teal; }
 
+/* Buttons
+------------------------------ */
 .button {
   padding: .3rem .5rem;
   vertical-align: middle;
@@ -509,29 +517,27 @@ BODY {
   text-shadow: 0 0 1px rgba(0, 0, 0, 0.75);
   color: #FFF; }
 
-.controls--buttons {
-  font-size: 1rem;
-  outline: 2px solid skyblue; }
-
 .controls--buttons .button {
   margin-left: .5rem; }
   .controls--buttons .button--current {
     background: crimson; }
 
+/* Ranges
+------------------------------ */
 .controls--ranges {
   position: absolute;
-  width: 100%;
-  outline: 2px solid steelblue; }
+  width: 100%; }
 
 .range {
   position: absolute;
+  height: 40px;
   text-align: center; }
   .range--hor {
     right: 0;
     width: 500px;
     outline: 2px solid olive; }
   .range--vert {
-    top: 60px;
+    top: 50px;
     width: 300px;
     transform-origin: 0 0;
     transform: rotate(-90deg) translateX(-100%);

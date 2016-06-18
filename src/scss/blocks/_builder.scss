@@ -22,7 +22,6 @@ $colors: purple, crimson, orangered, yellowgreen, skyblue, steelblue, olive, tea
   }
 }
 
-
 HTML, BODY {
   height: 100%;
   }
@@ -34,40 +33,48 @@ BODY {
   background-size: 1em 1em;
   }
 
-/* Layout */
+/* Layout
+------------------------------ */
 
 .demo {
   position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  margin: auto;
-  width: $svgW + $controlH + $space;
-  height: $svgH + $controlH + $space;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   text-align: center;
   white-space: nowrap;
   font-family: Arial, sans-serif;
 
   @include outline(2);
-
-  &--has-buttons {
-    height: $svgH + $controlH * 2 + $space * 2;
-  }
 }
 
 .demo__content {
   position: relative;
-  height: $svgH + $controlH + $space;
+  width: $svgW;
+  height: $svgH;
 
   @include outline(3);
 
-  &:after {
-    content: '';
-    display: table;
-    clear: both;
-    }
+  &--svg-only {
+    /* default */
   }
+
+  &--left-range {
+    width: $svgW + $controlH + $space/2;
+  }
+
+  &--top-range {
+    height: $svgH + $controlH + $space/2;
+  }
+
+  &--both-ranges {
+    width: $svgW + $controlH + $space/2;
+    height: $svgH + $controlH + $space/2;
+  }
+}
+
+/* SVG
+------------------------------ */
 
 .svg {
   position: absolute;
@@ -81,7 +88,8 @@ BODY {
   @include outline(4);
   }
 
-/* Controls */
+/* Controls
+------------------------------ */
 
 .controls {
 
@@ -94,45 +102,46 @@ BODY {
     }
   }
 
-  .demo--has-buttons .controls--buttons {
+  .controls--buttons {
     @include valnMid;
     height: $controlH;
     margin-bottom: $space;
-  }
-
-  .button {
-    padding: .3rem .5rem;
-    vertical-align: middle;
-    border: 0;
-    background: #BBB;
-    cursor: pointer;
-    font-size: 1rem;
-    text-shadow: 0 0 1px rgba(0, 0, 0, .75);
-    color: #FFF;
-    }
-
-  .controls--buttons {
     font-size: 1rem;
 
     @include outline(5);
+  }
 
-    }
-    .controls--buttons .button {
-      margin-left: .5rem;
+/* Buttons
+------------------------------ */
 
-      &--current {
-         background: crimson;
-        }
+.button {
+  padding: .3rem .5rem;
+  vertical-align: middle;
+  border: 0;
+  background: #BBB;
+  cursor: pointer;
+  font-size: 1rem;
+  text-shadow: 0 0 1px rgba(0, 0, 0, .75);
+  color: #FFF;
+  }
+
+  .controls--buttons .button {
+    margin-left: .5rem;
+
+    &--current {
+       background: crimson;
       }
+    }
 
+/* Ranges
+------------------------------ */
   .controls--ranges {
     position: absolute;
     width: 100%;
-
-    @include outline(6);
     }
     .range {
       position: absolute;
+      height: $controlH;
       text-align: center;
 
       &--hor {
@@ -143,7 +152,7 @@ BODY {
         }
 
       &--vert {
-        top: $controlH + $space;
+        top: $controlH + $space/2;
         width: $svgH;
         transform-origin: 0 0;
         transform: rotate(-90deg) translateX(-100%);

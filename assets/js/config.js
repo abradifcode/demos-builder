@@ -3,6 +3,7 @@
 var $ = tinyLib;
 
 var config = {
+  demoContentLayout: 'both-ranges',
   targetElem: $.get( '#mask' ),
 
   inputs: {
@@ -29,7 +30,7 @@ var config = {
       ]
     },
 
-    buttons: {
+    buttons__: {
       prop: 'maskUnits',
       list: [ 'objectBoundingBox', 'userSpaceOnUse' ],
       current: null,

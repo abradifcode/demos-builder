@@ -4,12 +4,23 @@ if ( !window.$ ) {
   var $ = tinyLib;
 }
 
+var demoContentClasses = {
+  'svg-only': 'svg-only',
+  'left-range': 'left-range',
+  'top-range': 'top-range',
+  'both-ranges': 'both-ranges'
+};
+
 var demo = $.get('.demo');
+var demoContent = $.get('.demo__content')
+                   .addClass( 'demo__content--' +demoContentClasses[ config.demoContentLayout ] );
 
 //------------------------------
 
 var ranges = config.inputs.ranges;
 var rangesHolder = $.get('.controls--ranges');
+
+//------------------------------
 
 function Range ( i ) {
 
@@ -32,9 +43,13 @@ function Range ( i ) {
 
   var that = this;
 
+  console.log( this );
+
   this.input.elem.oninput = function () {
     that.setValue();
   };
+
+  return this;
 };
 
 //------------------------------
@@ -48,9 +63,15 @@ Range.prototype.setValue = function () {
 
 //------------------------------
 
-for (var i = 0; i < ranges.list.length; i++) {
-  var range = new Range( i );
-  range.setValue();
+function addRanges () {
+  for (var i = 0; i < ranges.list.length; i++) {
+    var range = new Range( i );
+    range.setValue();
+  }
+}
+
+if ( ranges ) {
+  addRanges();
 }
 
 //------------------------------
@@ -60,7 +81,6 @@ var buttonsHolder = $.get( '.controls--buttons' );
 
 if ( buttons ) {
   addButtons();
-  demo.addClass('demo--has-buttons')
 }
 
 function addButtons() {
@@ -105,3 +125,4 @@ function Button( i ) {
     buttons.current = item;
   }
 }
+
