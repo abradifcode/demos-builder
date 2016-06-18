@@ -88,20 +88,18 @@
 
     //------------------------------
 
-    function Button( i ) {
+    function Button ( i ) {
 
-      var buttonValue = buttons.list[ i ];
+      this.value = buttons.list[ i ];
 
       var item = $.create('button')
                   .addClass( [ 'button' ] )
-                  .val( buttonValue )
-                  .html( buttonValue );
+                  .val( this.value )
+                  .html( this.value );
 
-      if ( !buttons.current ) {
-        buttons.current = item;
+      this.item = item;
 
-        item.addClass( buttons.currentClass );
-      }
+      this.checkIsCurrent();
 
       buttonsHolder.append( item );
 
@@ -114,6 +112,27 @@
         config.targetElem.attr( buttons.prop, this.value );
 
         buttons.current = item;
+      }
+    }
+
+    //------------------------------
+
+    Button.prototype.checkIsCurrent = function () {
+
+      if ( !buttons.current ) {
+
+        if ( buttons.default ) {
+            if ( this.value === buttons.default ) {
+              buttons.current = this.item;
+            }
+        }
+        else {
+          buttons.current = this.item;
+        }
+
+        if ( buttons.current ) {
+          buttons.current.addClass( buttons.currentClass );
+        }
       }
     }
 
