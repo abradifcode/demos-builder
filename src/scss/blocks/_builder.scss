@@ -1,9 +1,12 @@
+/* Vars & Mixins
+------------------------------ */
+
 $svgW: 500px;
 $svgH: 300px;
 
 $controlH: 40px;
 
-$space: 20px;
+$space: 10px;
 
 $colors: purple, crimson, orangered, yellowgreen, skyblue, steelblue, olive, teal, indigo;
 
@@ -20,6 +23,9 @@ $colors: purple, crimson, orangered, yellowgreen, skyblue, steelblue, olive, tea
   }
 }
 
+/* Base
+------------------------------ */
+
 HTML, BODY {
   height: 100%;
 }
@@ -29,6 +35,7 @@ BODY {
     linear-gradient( #EEE 1px, transparent 2px),
     linear-gradient( to right, #EEE 1px, transparent 2px);
   background-size: 1em 1em;
+
 }
 
 /* Layout
@@ -41,7 +48,7 @@ BODY {
   transform: translate(-50%, -50%);
   text-align: center;
   white-space: nowrap;
-  font-family: Arial, sans-serif;
+  font: 16px/1.4 Arial, sans-serif;
 }
 
 .demo__content {
@@ -54,16 +61,16 @@ BODY {
   }
 
   &--left-range {
-    width: $svgW + $controlH + $space/2;
+    width: $svgW + $controlH + $space;
   }
 
   &--top-range {
-    height: $svgH + $controlH + $space/2;
+    height: $svgH + $controlH + $space;
   }
 
   &--both-ranges {
-    width: $svgW + $controlH + $space/2;
-    height: $svgH + $controlH + $space/2;
+    width: $svgW + $controlH + $space;
+    height: $svgH + $controlH + $space;
   }
 }
 
@@ -138,7 +145,7 @@ BODY {
     }
 
     &--vert {
-      top: $controlH + $space/2;
+      top: $controlH + $space;
       width: $svgH;
       transform-origin: 0 0;
       transform: rotate(-90deg) translateX(-100%);
