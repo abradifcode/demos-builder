@@ -5,26 +5,13 @@
     "use strict";
 
     var demosBuilder = {};
-
-    if ( !window.$ ) {
-      window.$ = tinyLib;
-    }
-
-    var demoContentClasses = {
-      'svg-only': 'svg-only',
-      'left-range': 'left-range',
-      'top-range': 'top-range',
-      'both-ranges': 'both-ranges'
-    };
-
-    var demo = $.get('.demo');
-    var demoContent = $.get('.demo__content')
-                       .addClass( 'demo__content--' +demoContentClasses[ config.demoContentLayout ] );
-
-    //------------------------------
-
-    var ranges = config.inputs.ranges;
+    var demo;
+    var demoContent;
+    var ranges;
     var rangesHolder;
+
+    var buttons;
+    var buttonsHolder;
 
     //------------------------------
 
@@ -48,8 +35,6 @@
       rangesHolder.append( rangeHolder );
 
       var that = this;
-
-      console.log( this );
 
       this.input.elem.oninput = function () {
         that.setValue();
@@ -83,9 +68,6 @@
     }
 
     //------------------------------
-
-    var buttons = config.inputs.buttons;
-    var buttonsHolder;
 
     function addButtons() {
       buttonsHolder = $.create('div')
@@ -138,6 +120,35 @@
     //------------------------------
 
     demosBuilder.create = function () {
+
+      if ( !window.$ ) {
+        window.$ = tinyLib;
+      }
+
+      if ( !window.config ) {
+        console.log( 'Config not found' );
+        return;
+      }
+
+      var demoContentClasses = {
+        'svg-only': 'svg-only',
+        'left-range': 'left-range',
+        'top-range': 'top-range',
+        'both-ranges': 'both-ranges'
+      };
+
+      demo = $.get('.demo');
+      demoContent = $.get('.demo__content')
+                         .addClass( 'demo__content--' +demoContentClasses[ config.demoContentLayout ] );
+
+      //------------------------------
+
+      ranges = config.inputs.ranges;
+      rangesHolder;
+
+      buttons = config.inputs.buttons;
+      buttonsHolder;
+
       if ( ranges ) {
         addRanges();
       }
