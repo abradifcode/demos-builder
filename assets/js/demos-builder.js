@@ -18,7 +18,7 @@ var demoContent = $.get('.demo__content')
 //------------------------------
 
 var ranges = config.inputs.ranges;
-var rangesHolder = $.get('.controls--ranges');
+var rangesHolder;
 
 //------------------------------
 
@@ -71,15 +71,26 @@ function addRanges () {
 }
 
 if ( ranges ) {
+
+  rangesHolder = $.create('div')
+                      .addClass( [ 'controls', 'controls--ranges'] );
+
+  demoContent.prepend( rangesHolder );
+
   addRanges();
 }
 
 //------------------------------
 
 var buttons = config.inputs.buttons;
-var buttonsHolder = $.get( '.controls--buttons' );
+var buttonsHolder;
 
 if ( buttons ) {
+  buttonsHolder = $.create('div')
+                      .addClass( [ 'controls', 'controls--buttons'] );
+
+  demo.prepend( buttonsHolder );
+
   addButtons();
 }
 

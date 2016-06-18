@@ -30,7 +30,7 @@ var config = {
       ]
     },
 
-    buttons__: {
+    buttons: {
       prop: 'maskUnits',
       list: [ 'objectBoundingBox', 'userSpaceOnUse' ],
       current: null,
