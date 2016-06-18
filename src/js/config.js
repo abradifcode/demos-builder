@@ -40,4 +40,4 @@ var config = {
   }
 };
 
-
+demosBuilder.create();

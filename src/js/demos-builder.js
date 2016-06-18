@@ -1,8 +1,8 @@
 (function( window ) {
 
-  function define_library () {
+  'use strict';
 
-    "use strict";
+  function define_library () {
 
     var demosBuilder = {};
     var demo;
@@ -132,6 +132,7 @@
 
         if ( buttons.current ) {
           buttons.current.addClass( buttons.currentClass );
+          config.targetElem.attr( buttons.prop, this.value );
         }
       }
     }
@@ -185,8 +186,5 @@
   if( !window.demosBuilder ){
     window.demosBuilder = define_library();
   }
+
 })( window )
-
-demosBuilder.create();
-
-
