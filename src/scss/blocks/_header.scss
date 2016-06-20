@@ -1,25 +1,28 @@
 .header {
-  @include container-width;
+  /*@include container-width;*/
 
-  margin: 1rem auto 2rem;
-  padding: .5rem;
+  margin: 0 auto 2rem;
+  padding: .5rem 2rem;
 
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-
-  display: none;
 
   @media ( max-width: $bp-tablet ) {
     flex-direction: column;
+    justify-content: center;
   }
 
   background: #EEE;
   border: 1px solid rgba(0,0,0,.1);
 }
 
+.title {
+  margin: 0;
+}
+
 .nav {
-  display: none;
+  /*display: none;*/
 }
   .nav__item {
     display: inline-block;
