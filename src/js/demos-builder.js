@@ -19,7 +19,10 @@
 
       var item = ranges.list[i];
       var prefix = 'range--' + item.id;
+      this.item = item;
       this.valName = item.valName;
+      this.units = ranges.units || '';
+      this.transform = this.item.transform;
 
       var rangeHolder = $.create( 'div' )
                          .addClass( ['range', 'range--' + item.id ] );
@@ -46,7 +49,11 @@
     //------------------------------
 
     Range.prototype.setValue = function () {
-      var value = this.input.elem.value + ranges.units;
+      var value = this.input.elem.value + this.units;
+
+      if ( this.transform ) {
+        value = this.getTransform();
+      }
 
       config.targetElem.attr( this.valName, value );
       this.title.html(this.valName + ': ' + value);
@@ -54,7 +61,30 @@
 
     //------------------------------
 
+    Range.prototype.getTransform = function () {
+      var value = this.input.elem.value;
+
+      var transformName = this.transform.name;
+      var transformSet = [ value ];
+
+      var currentButtonVal = buttons.current.val();
+
+      var transformOrigin = this.transform.origin[ currentButtonVal ];
+
+      if ( transformOrigin ) {
+        transformSet = transformSet.concat( transformOrigin );
+      }
+
+      value = transformName + '(' + transformSet.join(', ') + ')';
+
+      return value;
+    }
+
+    //------------------------------
+
     function addRanges () {
+
+      ranges.collection = [];
 
       rangesHolder = $.create('div')
                           .addClass( [ 'controls', 'controls--ranges'] );
@@ -64,6 +94,15 @@
       for (var i = 0; i < ranges.list.length; i++) {
         var range = new Range( i );
         range.setValue();
+        ranges.collection[ i ] = range;
+      }
+    }
+
+    //------------------------------
+
+    function resetRangesValues() {
+      for (var i = 0; i < ranges.collection.length; i++) {
+        ranges.collection[i].setValue();
       }
     }
 
@@ -112,6 +151,10 @@
         config.targetElem.attr( buttons.prop, this.value );
 
         buttons.current = item;
+
+        if ( buttons.switchUnits === true ) {
+          resetRangesValues();
+        }
       }
     }
 
@@ -169,12 +212,12 @@
       buttons = config.inputs.buttons;
       buttonsHolder;
 
-      if ( ranges ) {
-        addRanges();
-      }
-
       if ( buttons ) {
         addButtons();
+      }
+
+      if ( ranges ) {
+        addRanges();
       }
     };
 
