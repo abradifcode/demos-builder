@@ -23,6 +23,7 @@
       this.valName = item.valName;
       this.units = ranges.units || '';
       this.transform = this.item.transform;
+      this.targetElem = ranges.targetElem || config.targetElem;
 
       var rangeHolder = $.create( 'div' )
                          .addClass( ['range', 'range--' + item.id ] );
@@ -49,13 +50,29 @@
     //------------------------------
 
     Range.prototype.setValue = function () {
-      var value = this.input.elem.value + this.units;
+      var value = this.input.elem.value;
+
+      // $.out('setValue', 'h4');
 
       if ( this.transform ) {
+        // $.out('— transform');
         value = this.getTransform();
       }
+      else if ( buttons.switchUnits === true ) {
+        // convert input units
+        // convert target units
+        // $.out('— switch values');
+        // convertAttrs( this.input );
 
-      config.targetElem.attr( this.valName, value );
+        value = convertValue( this.input.elem.value );
+        // console.log( this.input.elem.value );
+      }
+      else {
+        $.out('— no values processing');
+        value += this.units;
+      }
+
+      this.targetElem.attr( this.valName, value );
       this.title.html(this.valName + ': ' + value);
     };
 
@@ -82,6 +99,55 @@
 
     //------------------------------
 
+    function convertAttrs ( elemSet ) {
+      var elem = elemSet.elem;
+      var attrsList = elem.attributes;
+
+      for (var i = 0; i < attrsList.length; i++) {
+        var attrItem = attrsList[i];
+        var attrName = attrItem.name;
+        var attrValue = +attrItem.value.replace('%','');
+
+        if( !isNaN ( attrValue ) ) {
+          attrValue = convertValue ( attrValue );
+          elemSet.attr( attrName, attrValue);
+        }
+      }
+    }
+
+    //------------------------------
+
+    function convertValue ( value ) {
+      var newValue = 0;
+      var currentButtonVal = buttons.current.val();
+
+      //objectBoundingBox
+      if ( currentButtonVal ===  'objectBoundingBox') {
+
+        if ( value < 1 ) {
+            newValue = value;
+        }
+        else {
+            newValue = value / 100;
+        }
+      }
+      //userSpaceOnUse
+      else {
+        if ( value <= 1 ) {
+            newValue = value * 100;
+        }
+        else {
+            newValue = value;
+        }
+
+        newValue += ranges.units;
+      }
+
+      return newValue;
+    }
+
+    //------------------------------
+
     function addRanges () {
 
       ranges.collection = [];
@@ -101,6 +167,11 @@
     //------------------------------
 
     function resetRangesValues() {
+
+      if ( ranges.targetElem ) {
+        convertAttrs( ranges.targetElem );
+      }
+
       for (var i = 0; i < ranges.collection.length; i++) {
         ranges.collection[i].setValue();
       }
@@ -110,7 +181,7 @@
 
     function addButtons() {
       buttonsHolder = $.create('div')
-                          .addClass( [ 'controls', 'controls--buttons'] );
+                       .addClass( [ 'controls', 'controls--buttons'] );
 
       demo.prepend( buttonsHolder );
 
