@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Gradient transform</title>
+    <title>Gradient radius</title>
     <link rel="stylesheet" href="./assets/css/styles.css">
 </head>
 <body>
@@ -24,8 +24,8 @@
           <div class="demo__content">
         
             <svg class="svg">
-              <linearGradient id="grad"
-                    x1="0" y1="50%" x2="100%" y2="50%">
+              <radialGradient id="grad"
+                    cx="50%" y="50%">
                 <stop offset="0%" stop-color="crimson"
                       class="stop-1"/>
                 <stop offset="49%" stop-color="gold"
@@ -36,7 +36,7 @@
                       class="stop-2"/>
                 <stop offset="100%" stop-color="teal"
                       class="stop-3"/>
-              </linearGradient>
+              </radialGradient>
         
               <symbol id="s-coords">
                 <g stroke-dasharray="10 5">
@@ -66,37 +66,40 @@
     <script src="./assets/js/tinylib/tinylib.js"></script>
     <script src="./assets/js/demos-builder.js"></script>
     <script>
-    "use strict";
+    // Required
+    // 1. tinyLib:
+    // http://codepen.io/yoksel/pen/KMgMvw
+    // 2. demosBuilder:
+    // http://codepen.io/yoksel/pen/JKRKyy
+    
+    console.clear();
     
     var $ = tinyLib;
     
     var config = {
-      demoContentLayout: 'top-range',
+      demoContentLayout: 'both-ranges',
       targetElem: $.get( '#grad' ),
     
       inputs: {
         ranges: {
-          // units: '',
+          units: '%',
     
           attrs: {
             type: 'range',
             min: 0,
-            max: 360,
+            max: 100,
             step: 1,
-            value: 180,
+            value: 50,
           },
     
           list: [
             {
               id: 'hor',
-              valName: 'gradientTransform',
-              transform: {
-                name: 'rotate',
-                origin: {
-                  'objectBoundingBox': ['.5','.5'],
-                  'userSpaceOnUse': ['250','150']
-                }
-              }
+              valName: 'r'
+            },
+              {
+              id: 'vert',
+              valName: 'cy'
             }
           ]
         },

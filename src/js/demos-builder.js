@@ -52,23 +52,15 @@
     Range.prototype.setValue = function () {
       var value = this.input.elem.value;
 
-      // $.out('setValue', 'h4');
-
       if ( this.transform ) {
-        // $.out('— transform');
         value = this.getTransform();
       }
       else if ( buttons.switchUnits === true ) {
-        // convert input units
-        // convert target units
-        // $.out('— switch values');
-        // convertAttrs( this.input );
 
         value = convertValue( this.input.elem.value );
-        // console.log( this.input.elem.value );
       }
       else {
-        $.out('— no values processing');
+        // $.out('— no values processing');
         value += this.units;
       }
 
@@ -133,7 +125,7 @@
       }
       //userSpaceOnUse
       else {
-        if ( value <= 1 ) {
+        if ( value < 1 ) {
             newValue = value * 100;
         }
         else {
