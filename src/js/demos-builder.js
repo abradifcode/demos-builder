@@ -42,6 +42,10 @@
 
       this.input.elem.oninput = function () {
         that.setValue();
+        if ( ranges.isTied ) {
+          that.sibling.input.elem.value = this.value;
+          that.sibling.setValue();
+        }
       };
 
       return this;
@@ -78,9 +82,10 @@
 
       var currentButtonVal = buttons.current.val();
 
-      var transformOrigin = this.transform.origin[ currentButtonVal ];
+      var transformOrigin = this.transform.origin ? this.transform.origin[ currentButtonVal ] : null;
 
-      if ( transformOrigin ) {
+      if ( transformOrigin
+           && transformName == 'rotate' ) {
         transformSet = transformSet.concat( transformOrigin );
       }
 
@@ -145,14 +150,20 @@
       ranges.collection = [];
 
       rangesHolder = $.create('div')
-                          .addClass( [ 'controls', 'controls--ranges'] );
+                      .addClass( [ 'controls', 'controls--ranges'] );
 
       demoContent.prepend( rangesHolder );
 
       for (var i = 0; i < ranges.list.length; i++) {
         var range = new Range( i );
+
         range.setValue();
         ranges.collection[ i ] = range;
+      }
+
+      if ( ranges.list.length === 2 ) {
+        ranges.collection[ 0 ].sibling = ranges.collection[ 1 ];
+        ranges.collection[ 1 ].sibling = ranges.collection[ 0 ];
       }
     }
 
