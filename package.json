@@ -13,7 +13,6 @@
     "autoprefixer": "^6.3.5",
     "browser-sync": "^2.11.2",
     "colors": "^1.1.2",
-    "css-mqpacker": "^4.0.1",
     "cssnano": "^3.5.2",
     "del": "^2.2.0",
     "editorconfig-tools": "^0.1.1",

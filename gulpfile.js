@@ -7,7 +7,6 @@ var postcss = require('gulp-postcss');
 var autoprefixer = require('autoprefixer');
 var cssnano = require('cssnano');
 var rename = require('gulp-rename');
-var mqpacker = require("css-mqpacker");
 var imagemin = require('gulp-imagemin');
 var pngquant = require('imagemin-pngquant');
 var copy = require('gulp-copy');
@@ -24,8 +23,7 @@ gulp.task('sass', function () {
           'last 2 Firefox versions',
           'last 2 Opera versions',
           'last 2 Edge versions'
-          ]}),
-        mqpacker()
+          ]})
     ];
 
   console.log('⬤  Run ' + colors.yellow('Sass') +
@@ -46,8 +44,9 @@ gulp.task('sass', function () {
 
 // JS
 gulp.task('js', function () {
-  return gulp.src('src/js/**/*.js')
-  .pipe(gulp.dest('assets/js/'))
+  console.log(colors.cyan('⬤  Copy scripts... ⬤'));
+  return gulp.src('src/**/*.js')
+  .pipe(gulp.dest('assets/'))
   .pipe(reload({ stream:true }));
 });
 
