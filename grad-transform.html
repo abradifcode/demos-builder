@@ -12,7 +12,12 @@
         <a class="nav__item" href="mask-coords.html">maskContentUnits</a>
         <a class="nav__item" href="/">Mask Width & Height</a>
         <a class="nav__item" href="grad-transform.html">Gradient Transform</a>
+        <a class="nav__item" href="grad-transform-rotate.html">Gradient Rotate</a>
         <a class="nav__item" href="grad-radius.html">Gradient Radius</a>
+    
+        <a class="nav__item" href="pattern-units.html">Pattern Units</a>
+        <a class="nav__item" href="pattern-units-px.html">Pattern Units px</a>
+        <a class="nav__item" href="pattern-content-units.html">Pattern Content Units</a>
       </nav>
     </header>
     
@@ -81,9 +86,9 @@
           attrs: {
             type: 'range',
             min: 0,
-            max: 360,
-            step: 1,
-            value: 180,
+            max: 1,
+            step: .1,
+            value: 1,
           },
     
           list: [
@@ -91,11 +96,7 @@
               id: 'hor',
               valName: 'gradientTransform',
               transform: {
-                name: 'rotate',
-                origin: {
-                  'objectBoundingBox': ['.5','.5'],
-                  'userSpaceOnUse': ['250','150']
-                }
+                name: 'scale'
               }
             }
           ]

@@ -13,9 +13,9 @@ var config = {
       attrs: {
         type: 'range',
         min: 0,
-        max: 360,
-        step: 1,
-        value: 180,
+        max: 1,
+        step: .1,
+        value: 1,
       },
 
       list: [
@@ -23,11 +23,7 @@ var config = {
           id: 'hor',
           valName: 'gradientTransform',
           transform: {
-            name: 'rotate',
-            origin: {
-              'objectBoundingBox': ['.5','.5'],
-              'userSpaceOnUse': ['250','150']
-            }
+            name: 'scale'
           }
         }
       ]
