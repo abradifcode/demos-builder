@@ -31,15 +31,6 @@ var config = {
           valName: 'height'
         }
       ]
-    },
-
-    buttons: {
-      prop: 'patternUnits',
-      list: [ 'objectBoundingBox', 'userSpaceOnUse' ],
-      default: 'userSpaceOnUse',
-      current: null,
-      currentClass: 'button--current',
-      // switchUnits: true
     }
   }
 };
