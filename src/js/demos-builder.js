@@ -78,7 +78,7 @@
       if ( this.transform ) {
         value = this.getTransform();
       }
-      else if ( buttons.switchUnits === true ) {
+      else if ( buttons && buttons.switchUnits === true ) {
 
         value = convertValue( this.input.elem.value );
       }
