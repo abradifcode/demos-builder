@@ -17,7 +17,7 @@ var config = {
         min: 0,
         max: 300,
         step: 1,
-        value: 50,
+        value: 150,
       },
 
       list: [
