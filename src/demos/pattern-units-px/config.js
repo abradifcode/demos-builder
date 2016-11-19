@@ -10,6 +10,7 @@ var config = {
     ranges: {
       targetElem: $.get('#pattern'),
       isTied: true,
+      keepViewBoxRatio: true,
       // units: '%',
 
       attrs: {

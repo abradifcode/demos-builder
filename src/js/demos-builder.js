@@ -24,6 +24,13 @@
       this.units = ranges.units || '';
       this.transform = this.item.transform;
       this.targetElem = ranges.targetElem || config.targetElem;
+      var attrs = ranges.attrs;
+
+      if ( ranges.keepViewBoxRatio && this.valName === 'height') {
+        attrs = copyObj ( attrs );
+        attrs.value = attrs.value / ranges.ratio;
+        attrs.max = attrs.max / ranges.ratio;
+      }
 
       var rangeHolder = $.create( 'div' )
                          .addClass( ['range', 'range--' + item.id ] );
@@ -32,7 +39,7 @@
                     .addClass( ['range__title'] );
 
       this.input = $.create( 'input' )
-                    .attr( ranges.attrs )
+                    .attr( attrs )
                     .addClass( ['range__input']);
 
       rangeHolder.append( this.title ).append( this.input );
@@ -42,8 +49,20 @@
 
       this.input.elem.oninput = function () {
         that.setValue();
+
         if ( ranges.isTied ) {
-          that.sibling.input.elem.value = this.value;
+          var siblingValue = this.value;
+
+          if ( ranges.keepViewBoxRatio ) {
+            if ( that.valName === 'width' ) {
+              siblingValue = siblingValue / ranges.ratio;
+            }
+            else if ( that.valName === 'height' ) {
+              siblingValue = siblingValue * ranges.ratio;
+            }
+          }
+
+          that.sibling.input.elem.value = siblingValue;
           that.sibling.setValue();
         }
       };
@@ -145,6 +164,18 @@
 
     //------------------------------
 
+    function copyObj ( obj ) {
+      var newObj = {};
+
+      for ( var key in obj ) {
+        newObj[ key ] = obj[ key ];
+      }
+
+      return newObj;
+    }
+
+    //------------------------------
+
     function addRanges () {
 
       ranges.collection = [];
@@ -154,6 +185,13 @@
 
       demoContent.prepend( rangesHolder );
 
+      if ( ranges.keepViewBoxRatio ) {
+        var viewBoxValues = ranges.targetElem.elem.viewBox.baseVal;
+        ranges.ratio = viewBoxValues.width / viewBoxValues.height;
+
+
+      }
+
       for (var i = 0; i < ranges.list.length; i++) {
         var range = new Range( i );
 
@@ -161,7 +199,7 @@
         ranges.collection[ i ] = range;
       }
 
-      if ( ranges.list.length === 2 ) {
+      if ( ranges.isTied && ranges.list.length === 2 ) {
         ranges.collection[ 0 ].sibling = ranges.collection[ 1 ];
         ranges.collection[ 1 ].sibling = ranges.collection[ 0 ];
       }
