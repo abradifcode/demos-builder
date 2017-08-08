@@ -64,7 +64,7 @@ gulp.task('images', function () {
 });
 
 // INCLUDE BLOCKS IN HTML
-gulp.task('include', function () {
+gulp.task('include', ['js'], function () {
   console.log(colors.blue('⬤  Include files to HTML... ⬤'));
 
   gulp.src('src/*.html')
@@ -83,7 +83,7 @@ gulp.task('serve', ['sass', 'js'], function () {
   });
 
   gulp.watch(['src/**/*.scss'], ['sass']);
-  gulp.watch(['src/**/*.js'], ['js']);
+  gulp.watch(['src/**/*.js'], ['include']);
   gulp.watch(['src/**/*.html'], ['include']);
 });
 

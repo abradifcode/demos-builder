@@ -32,6 +32,14 @@
         attrs.max = attrs.max / ranges.ratio;
       }
 
+      if (item.value) {
+        attrs.value = item.value;
+      }
+
+      if (item.max) {
+        attrs.max = item.max;
+      }
+
       var rangeHolder = $.create( 'div' )
                          .addClass( ['range', 'range--' + item.id ] );
 
@@ -176,7 +184,7 @@
 
     //------------------------------
 
-    function addRanges () {
+    function addRanges() {
 
       ranges.collection = [];
 
@@ -188,8 +196,6 @@
       if ( ranges.keepViewBoxRatio ) {
         var viewBoxValues = ranges.targetElem.elem.viewBox.baseVal;
         ranges.ratio = viewBoxValues.width / viewBoxValues.height;
-
-
       }
 
       for (var i = 0; i < ranges.list.length; i++) {
