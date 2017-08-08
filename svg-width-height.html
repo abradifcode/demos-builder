@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Gradient radius</title>
+    <title>patternUnits</title>
     <link rel="stylesheet" href="./assets/css/styles.css">
 </head>
 <body>
@@ -22,46 +22,31 @@
       </nav>
     </header>
     
-
     <div class="container">
       <main class="main">
         <div class="demo">
-        
           <div class="demo__content">
         
-            <svg class="svg">
-              <radialGradient id="grad"
-                    cx="50%" y="50%">
-                <stop offset="0%" stop-color="crimson"
-                      class="stop-1"/>
-                <stop offset="49%" stop-color="gold"
-                      class="stop-2"/>
-                <stop offset="50%" stop-color="lemonchiffon"
-                      class="stop-2"/>
-                <stop offset="51%" stop-color="gold"
-                      class="stop-2"/>
-                <stop offset="100%" stop-color="teal"
-                      class="stop-3"/>
-              </radialGradient>
+            <svg class="svg svg--nosizes">
+                <symbol id="s--circle">
+                    <circle r="50" cx="50" cy="50"></circle>
+                </symbol>
         
-              <symbol id="s-coords">
-                <g stroke-dasharray="10 5">
-                    <line x1="50%" y1="0" x2="50%" y2="100%" />
-                    <line y1="50%" x1="0" y2="50%" x2="100%" />
-                </g>
-              </symbol>
+                <use xlink:href="#s--circle"
+                     fill="hsla(5, 100%,50%,.5)"></use>
+                <use xlink:href="#s--circle"
+                     fill="hsla(50, 100%,50%,.5)"
+                    x="80"></use>
+                <use xlink:href="#s--circle"
+                     fill="hsla(90, 100%,50%,.5)"
+                     y="80"></use>
+                <use xlink:href="#s--circle"
+                     fill="hsla(200, 100%,50%,.5)"
+                     x="80" y="80"></use>
         
-              <use xlink:href="#s-coords" stroke="#333"></use>
+                <use xlink:href="#s-coords" width="80%" height="90%" stroke="steelblue"></use>
         
-              <g>
-                <rect width="80%" height="90%"
-                      fill="url(#grad)"
-                      stroke="#555" stroke-width="1"></rect>
-        
-                <use xlink:href="#s-coords" width="80%" height="90%" stroke="#555"></use>
-              </g>
             </svg>
-        
           </div>
         
         </div>
@@ -74,9 +59,9 @@
     <script>
     // Required
     // 1. tinyLib:
-    // http://codepen.io/yoksel/pen/KMgMvw
+    // https://codepen.io/yoksel/pen/KMgMvw
     // 2. demosBuilder:
-    // http://codepen.io/yoksel/pen/JKRKyy
+    // https://codepen.io/yoksel/pen/JKRKyy
     
     console.clear();
     
@@ -84,39 +69,32 @@
     
     var config = {
       demoContentLayout: 'both-ranges',
-      targetElem: $.get( '#grad' ),
+      targetElem: $.get( '.svg' ),
     
       inputs: {
         ranges: {
-          units: '%',
+          units: '',
     
           attrs: {
             type: 'range',
             min: 0,
-            max: 100,
+            max: 500,
             step: 1,
-            value: 50,
+            value: 300,
           },
     
           list: [
             {
               id: 'hor',
-              valName: 'r'
+              valName: 'width'
             },
-              {
+            {
               id: 'vert',
-              valName: 'cy'
+              valName: 'height',
+              value: 150,
+              max: 300,
             }
           ]
-        },
-    
-        buttons: {
-          prop: 'gradientUnits',
-          list: [ 'objectBoundingBox', 'userSpaceOnUse' ],
-          default: 'userSpaceOnUse',
-          current: null,
-          currentClass: 'button--current',
-          switchUnits: true
         }
       }
     };
