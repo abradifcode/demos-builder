@@ -1,17 +1,9 @@
 .header {
-  /*@include container-width;*/
-
-  margin: 0 auto 2rem;
-  padding: .5rem 2rem .75rem;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  padding: 1rem;
+  flex-basis:  250px;
 
   background: #EEE;
   border: 1px solid rgba(0,0,0,.1);
-  text-align: center;
 }
 
 .title {
@@ -20,9 +12,11 @@
 }
 
 .nav {
-  /*display: none;*/
+  display: flex;
+  flex-direction: column;
+  margin-left: 1rem;
 }
-  .nav__item {
-    display: inline-block;
-    margin: 0 .5rem;
-  }
+
+.nav__item {
+  margin-bottom: .25em;
+}

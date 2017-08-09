@@ -2,6 +2,8 @@ BODY {
   background: #FFF;
   font: #{$font-size}/1.4 $font-family;
   color: $color-font;
+
+  display: flex;
 }
 
 A {
@@ -29,20 +31,14 @@ H1, H2, H3, H4, H5 {
 /* LAYOUT */
 
 .header,
-.container,
-.footer {
-  @include container-width;
-  margin: 1rem auto;
+.container {
+  margin: 0;
   padding: .5rem;
-  /*border: 1px solid #DDD;*/
 }
 
 .container {
-  display: flex;
-
-  @media ( max-width: $bp-tablet ) {
-    flex-direction: column;
-  }
+  position: relative;
+  flex-grow: 1;
 }
 
 .main {
