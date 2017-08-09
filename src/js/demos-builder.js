@@ -1,8 +1,8 @@
-(function( window ) {
+(function (window) {
 
   'use strict';
 
-  function define_library () {
+  function define_library() {
 
     var demosBuilder = {};
     var demo;
@@ -15,7 +15,7 @@
 
     //------------------------------
 
-    function Range ( i ) {
+    function Range(i) {
 
       var item = ranges.list[i];
       var prefix = 'range--' + item.id;
@@ -26,8 +26,8 @@
       this.targetElem = ranges.targetElem || config.targetElem;
       var attrs = ranges.attrs;
 
-      if ( ranges.keepViewBoxRatio && this.valName === 'height') {
-        attrs = copyObj ( attrs );
+      if (ranges.keepViewBoxRatio && this.valName === 'height') {
+        attrs = copyObj(attrs);
         attrs.value = attrs.value / ranges.ratio;
         attrs.max = attrs.max / ranges.ratio;
       }
@@ -40,32 +40,31 @@
         attrs.max = item.max;
       }
 
-      var rangeHolder = $.create( 'div' )
-                         .addClass( ['range', 'range--' + item.id ] );
+      var rangeHolder = $.create('div')
+        .addClass(['range', 'range--' + item.id]);
 
-      this.title = $.create( 'div' )
-                    .addClass( ['range__title'] );
+      this.title = $.create('div')
+        .addClass(['range__title']);
 
-      this.input = $.create( 'input' )
-                    .attr( attrs )
-                    .addClass( ['range__input']);
+      this.input = $.create('input')
+        .attr(attrs)
+        .addClass(['range__input']);
 
-      rangeHolder.append( this.title ).append( this.input );
-      rangesHolder.append( rangeHolder );
+      rangeHolder.append(this.title).append(this.input);
+      rangesHolder.append(rangeHolder);
 
       var that = this;
 
       this.input.elem.oninput = function () {
         that.setValue();
 
-        if ( ranges.isTied ) {
+        if (ranges.isTied) {
           var siblingValue = this.value;
 
-          if ( ranges.keepViewBoxRatio ) {
-            if ( that.valName === 'width' ) {
+          if (ranges.keepViewBoxRatio) {
+            if (that.valName === 'width') {
               siblingValue = siblingValue / ranges.ratio;
-            }
-            else if ( that.valName === 'height' ) {
+            } else if (that.valName === 'height') {
               siblingValue = siblingValue * ranges.ratio;
             }
           }
@@ -82,22 +81,57 @@
 
     Range.prototype.setValue = function () {
       var value = this.input.elem.value;
+      var attrValue;
+      var visibleValue;
+      var valName = this.valName;
+      var title = this.valName;
+      if (ranges.prefix) {
+        title = ranges.prefix + ' ' + title;
+      }
 
-      if ( this.transform ) {
+      if (this.transform) {
         value = this.getTransform();
-      }
-      else if ( buttons && buttons.switchUnits === true ) {
+      } else if (buttons && buttons.switchUnits === true) {
 
-        value = convertValue( this.input.elem.value );
-      }
-      else {
+        value = convertValue(this.input.elem.value);
+      } else {
         // $.out('— no values processing');
         value += this.units;
       }
 
-      this.targetElem.attr( this.valName, value );
-      this.title.html(this.valName + ': ' + value);
+      attrValue = value;
+      visibleValue = value;
+
+      if (ranges.targetAttr && ranges.targetAttr === 'viewBox') {
+        var params = {};
+        params[this.valName] = value;
+        valName = 'viewBox';
+        attrValue = getViewBox(params);
+      }
+
+      this.targetElem.attr(valName, attrValue);
+      this.title.html(title + ': ' + visibleValue);
     };
+
+    //------------------------------
+
+    function getViewBox(params) {
+      var inputs = config.inputs.ranges.collection;
+
+      // Inputs does not exists yet
+      if (inputs.length < 2) {
+        return;
+      }
+
+      var set = {
+        x: params.x || 0,
+        y: params.y || 0,
+        width: params.width || ranges.elems.width.elem.value,
+        height: params.height || ranges.elems.height.elem.value,
+      };
+
+      return [set.x, set.y, set.width, set.height].join(' ');
+    }
 
     //------------------------------
 
@@ -105,15 +139,15 @@
       var value = this.input.elem.value;
 
       var transformName = this.transform.name;
-      var transformSet = [ value ];
+      var transformSet = [value];
 
       var currentButtonVal = buttons.current.val();
 
-      var transformOrigin = this.transform.origin ? this.transform.origin[ currentButtonVal ] : null;
+      var transformOrigin = this.transform.origin ? this.transform.origin[currentButtonVal] : null;
 
-      if ( transformOrigin
-           && transformName == 'rotate' ) {
-        transformSet = transformSet.concat( transformOrigin );
+      if (transformOrigin &&
+        transformName == 'rotate') {
+        transformSet = transformSet.concat(transformOrigin);
       }
 
       value = transformName + '(' + transformSet.join(', ') + ')';
@@ -123,45 +157,43 @@
 
     //------------------------------
 
-    function convertAttrs ( elemSet ) {
+    function convertAttrs(elemSet) {
       var elem = elemSet.elem;
       var attrsList = elem.attributes;
 
       for (var i = 0; i < attrsList.length; i++) {
         var attrItem = attrsList[i];
         var attrName = attrItem.name;
-        var attrValue = +attrItem.value.replace('%','');
+        var attrValue = +attrItem.value.replace('%', '');
 
-        if( !isNaN ( attrValue ) ) {
-          attrValue = convertValue ( attrValue );
-          elemSet.attr( attrName, attrValue);
+        if (!isNaN(attrValue)) {
+          attrValue = convertValue(attrValue);
+          elemSet.attr(attrName, attrValue);
         }
       }
     }
 
     //------------------------------
 
-    function convertValue ( value ) {
+    function convertValue(value) {
       var newValue = 0;
       var currentButtonVal = buttons.current.val();
 
       //objectBoundingBox
-      if ( currentButtonVal ===  'objectBoundingBox') {
+      if (currentButtonVal === 'objectBoundingBox') {
 
-        if ( value < 1 ) {
-            newValue = value;
-        }
-        else {
-            newValue = value / 100;
+        if (value < 1) {
+          newValue = value;
+        } else {
+          newValue = value / 100;
         }
       }
       //userSpaceOnUse
       else {
-        if ( value < 1 ) {
-            newValue = value * 100;
-        }
-        else {
-            newValue = value;
+        if (value < 1) {
+          newValue = value * 100;
+        } else {
+          newValue = value;
         }
 
         newValue += ranges.units;
@@ -172,11 +204,11 @@
 
     //------------------------------
 
-    function copyObj ( obj ) {
+    function copyObj(obj) {
       var newObj = {};
 
-      for ( var key in obj ) {
-        newObj[ key ] = obj[ key ];
+      for (var key in obj) {
+        newObj[key] = obj[key];
       }
 
       return newObj;
@@ -187,27 +219,29 @@
     function addRanges() {
 
       ranges.collection = [];
+      ranges.elems = {};
 
       rangesHolder = $.create('div')
-                      .addClass( [ 'controls', 'controls--ranges'] );
+        .addClass(['controls', 'controls--ranges']);
 
-      demoContent.prepend( rangesHolder );
+      demoContent.prepend(rangesHolder);
 
-      if ( ranges.keepViewBoxRatio ) {
+      if (ranges.keepViewBoxRatio) {
         var viewBoxValues = ranges.targetElem.elem.viewBox.baseVal;
         ranges.ratio = viewBoxValues.width / viewBoxValues.height;
       }
 
       for (var i = 0; i < ranges.list.length; i++) {
-        var range = new Range( i );
+        var range = new Range(i);
 
         range.setValue();
-        ranges.collection[ i ] = range;
+        ranges.collection[i] = range;
+        ranges.elems[ranges.list[i].valName] = range.input;
       }
 
-      if ( ranges.isTied && ranges.list.length === 2 ) {
-        ranges.collection[ 0 ].sibling = ranges.collection[ 1 ];
-        ranges.collection[ 1 ].sibling = ranges.collection[ 0 ];
+      if (ranges.isTied && ranges.list.length === 2) {
+        ranges.collection[0].sibling = ranges.collection[1];
+        ranges.collection[1].sibling = ranges.collection[0];
       }
     }
 
@@ -215,8 +249,8 @@
 
     function resetRangesValues() {
 
-      if ( ranges.targetElem ) {
-        convertAttrs( ranges.targetElem );
+      if (ranges.targetElem) {
+        convertAttrs(ranges.targetElem);
       }
 
       for (var i = 0; i < ranges.collection.length; i++) {
@@ -228,49 +262,49 @@
 
     function addButtons() {
       buttonsHolder = $.create('div')
-                       .addClass( [ 'controls', 'controls--buttons'] );
+        .addClass(['controls', 'controls--buttons']);
 
-      demo.prepend( buttonsHolder );
+      demo.prepend(buttonsHolder);
 
-      var buttonsTitle = $.create( 'h2' )
-                          .addClass('controls__title' )
-                          .html( buttons.prop );
+      var buttonsTitle = $.create('h2')
+        .addClass('controls__title')
+        .html(buttons.prop);
 
-      buttonsHolder.append( buttonsTitle );
+      buttonsHolder.append(buttonsTitle);
 
-      for ( var i = 0; i < buttons.list.length; i ++ ) {
-        var button = new Button( i );
+      for (var i = 0; i < buttons.list.length; i++) {
+        var button = new Button(i);
       }
     }
 
     //------------------------------
 
-    function Button ( i ) {
+    function Button(i) {
 
-      this.value = buttons.list[ i ];
+      this.value = buttons.list[i];
 
       var item = $.create('button')
-                  .addClass( [ 'button' ] )
-                  .val( this.value )
-                  .html( this.value );
+        .addClass(['button'])
+        .val(this.value)
+        .html(this.value);
 
       this.item = item;
 
       this.checkIsCurrent();
 
-      buttonsHolder.append( item );
+      buttonsHolder.append(item);
 
       item.elem.onclick = function () {
-        if ( buttons.current ) {
-          buttons.current.removeClass( buttons.currentClass );
+        if (buttons.current) {
+          buttons.current.removeClass(buttons.currentClass);
         }
 
         item.addClass(buttons.currentClass);
-        config.targetElem.attr( buttons.prop, this.value );
+        config.targetElem.attr(buttons.prop, this.value);
 
         buttons.current = item;
 
-        if ( buttons.switchUnits === true ) {
+        if (buttons.switchUnits === true) {
           resetRangesValues();
         }
       }
@@ -280,20 +314,19 @@
 
     Button.prototype.checkIsCurrent = function () {
 
-      if ( !buttons.current ) {
+      if (!buttons.current) {
 
-        if ( buttons.default ) {
-            if ( this.value === buttons.default ) {
-              buttons.current = this.item;
-            }
-        }
-        else {
+        if (buttons.default) {
+          if (this.value === buttons.default) {
+            buttons.current = this.item;
+          }
+        } else {
           buttons.current = this.item;
         }
 
-        if ( buttons.current ) {
-          buttons.current.addClass( buttons.currentClass );
-          config.targetElem.attr( buttons.prop, this.value );
+        if (buttons.current) {
+          buttons.current.addClass(buttons.currentClass);
+          config.targetElem.attr(buttons.prop, this.value);
         }
       }
     }
@@ -302,12 +335,12 @@
 
     demosBuilder.create = function () {
 
-      if ( !window.$ ) {
+      if (!window.$) {
         window.$ = tinyLib;
       }
 
-      if ( !window.config ) {
-        console.log( 'Config not found' );
+      if (!window.config) {
+        console.log('Config not found');
         return;
       }
 
@@ -320,7 +353,7 @@
 
       demo = $.get('.demo');
       demoContent = $.get('.demo__content')
-                         .addClass( 'demo__content--' +demoContentClasses[ config.demoContentLayout ] );
+        .addClass('demo__content--' + demoContentClasses[config.demoContentLayout]);
 
       //------------------------------
 
@@ -330,11 +363,11 @@
       buttons = config.inputs.buttons;
       buttonsHolder;
 
-      if ( buttons ) {
+      if (buttons) {
         addButtons();
       }
 
-      if ( ranges ) {
+      if (ranges) {
         addRanges();
       }
     };
@@ -344,8 +377,8 @@
     return demosBuilder;
   }
 
-  if( !window.demosBuilder ){
+  if (!window.demosBuilder) {
     window.demosBuilder = define_library();
   }
 
-})( window )
+})(window)
