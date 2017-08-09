@@ -19,6 +19,7 @@
         <a class="nav__item" href="pattern-units-px.html">Pattern Units px</a>
         <a class="nav__item" href="pattern-content-units.html">Pattern Content Units</a>
         <a class="nav__item" href="svg-width-height.html">SVG Width & Height</a>
+        <a class="nav__item" href="svg-width-height-viewbox.html">SVG Width, Height & viewBox</a>
       </nav>
     </header>
     
@@ -28,24 +29,14 @@
           <div class="demo__content">
         
             <svg class="svg svg--nosizes">
-                <symbol id="s--circle">
-                    <circle r="50" cx="50" cy="50"></circle>
-                </symbol>
-        
-                <use xlink:href="#s--circle"
-                     fill="hsla(5, 100%,50%,.5)"></use>
-                <use xlink:href="#s--circle"
-                     fill="hsla(50, 100%,50%,.5)"
-                    x="80"></use>
-                <use xlink:href="#s--circle"
-                     fill="hsla(90, 100%,50%,.5)"
-                     y="80"></use>
-                <use xlink:href="#s--circle"
-                     fill="hsla(200, 100%,50%,.5)"
-                     x="80" y="80"></use>
-        
-                <use xlink:href="#s-coords" width="80%" height="90%" stroke="steelblue"></use>
-        
+                <circle r="50" cx="50" cy="50"
+                        fill="hsla(5, 100%,50%,.5)"></circle>
+                <circle r="50" cx="130" cy="50"
+                        fill="hsla(50, 100%,50%,.5)"></circle>
+                <circle r="50" cx="50" cy="130"
+                        fill="hsla(90, 100%,50%,.5)"></circle>
+                <circle r="50" cx="130" cy="130"
+                        fill="hsla(200, 100%,50%,.5)"></circle>
             </svg>
           </div>
         
