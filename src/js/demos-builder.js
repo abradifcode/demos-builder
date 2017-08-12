@@ -2,7 +2,7 @@
 
   'use strict';
 
-  function define_library() {
+  function defineLibrary() {
 
     var doc = document;
     var demosBuilder = {};
@@ -477,7 +477,7 @@
   }
 
   if (!window.demosBuilder) {
-    window.demosBuilder = define_library();
+    window.demosBuilder = defineLibrary();
   }
 
 })(window)
