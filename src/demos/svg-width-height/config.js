@@ -10,7 +10,8 @@ var $ = tinyLib;
 
 var config = {
   demoContentLayout: 'both-ranges',
-  targetElem: $.get( '.svg' ),
+  targetElem: $.get('.svg'),
+  resizeable: true,
 
   inputs: {
     ranges: {

@@ -169,3 +169,60 @@ BODY {
     margin: auto;
     cursor: pointer;
   }
+
+/* Resize Control
+------------------------------ */
+$control-size: 18px;
+
+.resize-control {
+  display: block;
+  position: relative;
+  width: $control-size;
+  height: $control-size;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  color: #000;
+  transition: color, opacity .25s;
+
+  &:focus,
+  &:hover {
+    color: #333;
+  }
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    transition: inherit;
+  }
+
+  &::before {
+    border: $control-size/2 solid transparent;
+    border-color: transparent currentColor currentColor transparent;
+  }
+
+  &::after {
+    width: 80%;
+    height: 80%;
+    opacity: .5;
+    background: linear-gradient(to left top,
+      transparent 1px,
+      white 1px, white 2px,
+      transparent 2px, transparent 4px,
+      white 4px, white 5px,
+      transparent 5px
+    );
+    background-size: cover;
+  }
+
+  &:focus::after,
+  &:hover::after {
+    opacity: .75;
+  }
+}
