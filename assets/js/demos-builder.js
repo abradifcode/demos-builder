@@ -4,6 +4,7 @@
 
   function define_library() {
 
+    var doc = document;
     var demosBuilder = {};
     var demo;
     var demoContent;
@@ -12,6 +13,8 @@
 
     var buttons;
     var buttonsHolder;
+
+    var resizeControl;
 
     //------------------------------
 
@@ -111,6 +114,11 @@
 
       this.targetElem.attr(valName, attrValue);
       this.title.html(title + ': ' + visibleValue);
+
+      if (resizeControl) {
+        resizeControl.updateOffsets();
+      }
+
     };
 
     //------------------------------
@@ -333,6 +341,92 @@
 
     //------------------------------
 
+    function ResizeControl() {
+      var that = this;
+      this.targetElem = config.targetElem;
+      this.targetElem.width = +this.targetElem.attr('width');
+      this.targetElem.height = +this.targetElem.attr('height');
+      var targetStyles = getComputedStyle(this.targetElem.elem);
+      this.targetElem.top = parseInt(targetStyles.top);
+      this.targetElem.left = parseInt(targetStyles.left);
+
+      var parent = this.targetElem.elem.parentNode;
+
+      this.control = $.create('button')
+        .attr({'type': 'button'})
+        .addClass('resize-control');
+
+      parent.appendChild(this.control.elem);
+
+      var controlWidth = getComputedStyle(this.control.elem).width;
+      this.width = parseInt(controlWidth);
+
+      this.getOffsets();
+      this.setOffsets();
+
+      this.control.elem.onmousedown = function (event) {
+        doc.onmousemove = function (event) {
+
+          if ((that.targetElem.height + event.movementY) > that.width) {
+            that.targetElem.height += event.movementY;
+            that.top += event.movementY
+          }
+
+          if ((that.targetElem.width + event.movementX) > that.width) {
+            that.targetElem.width += event.movementX;
+            that.left += event.movementX;
+          }
+
+          that.setOffsets();
+          that.setSizes();
+        }
+      };
+
+      doc.onmouseup = function (event) {
+        doc.onmousemove = null;
+      };
+    }
+
+    //------------------------------
+
+    ResizeControl.prototype.getOffsets = function () {
+      // Use rect to get outer boundaries
+      var rect = this.targetElem.elem.getBoundingClientRect();
+      this.top = this.targetElem.top + rect.height - this.width;
+      this.left = this.targetElem.left + rect.width - this.width;
+    };
+
+    //------------------------------
+
+    ResizeControl.prototype.setOffsets = function () {
+      this.control.elem.style.top = this.top + 'px';
+      this.control.elem.style.left = this.left + 'px';
+    };
+
+    //------------------------------
+
+    ResizeControl.prototype.setSizes = function () {
+      var that = this;
+      this.targetElem.attr('width', this.targetElem.width);
+      this.targetElem.attr('height', this.targetElem.height);
+
+      ranges.collection.forEach(function(item) {
+        item.input.elem.value = that.targetElem[item.valName];
+        item.title.html(item.valName + ': ' + that.targetElem[item.valName]);
+      });
+    };
+
+    //------------------------------
+
+    ResizeControl.prototype.updateOffsets = function () {
+        this.targetElem.width = +this.targetElem.attr('width');
+        this.targetElem.height = +this.targetElem.attr('height');
+        this.getOffsets();
+        this.setOffsets();
+    }
+
+    //------------------------------
+
     demosBuilder.create = function () {
 
       if (!window.$) {
@@ -344,6 +438,7 @@
         return;
       }
 
+      // To keep all available classes
       var demoContentClasses = {
         'svg-only': 'svg-only',
         'left-range': 'left-range',
@@ -369,6 +464,10 @@
 
       if (ranges) {
         addRanges();
+      }
+
+      if (config.resizeable) {
+        resizeControl = new ResizeControl();
       }
     };
 
