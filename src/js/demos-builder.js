@@ -344,22 +344,25 @@
     function ResizeControl() {
       var that = this;
       this.targetElem = config.targetElem;
-      this.targetElem.width = +this.targetElem.attr('width');
-      this.targetElem.height = +this.targetElem.attr('height');
       var targetStyles = getComputedStyle(this.targetElem.elem);
-      this.targetElem.top = parseInt(targetStyles.top);
-      this.targetElem.left = parseInt(targetStyles.left);
+      this.targetElem.width = parseInt(targetStyles.width);
+      this.targetElem.height = parseInt(targetStyles.height);
+      this.targetElem.top = parseInt(targetStyles.top) || 0;
+      this.targetElem.left = parseInt(targetStyles.left) || 0;
 
       var parent = this.targetElem.elem.parentNode;
 
       this.control = $.create('button')
-        .attr({'type': 'button'})
+        .attr({
+          'type': 'button'
+        })
         .addClass('resize-control');
 
       parent.appendChild(this.control.elem);
 
       var controlWidth = getComputedStyle(this.control.elem).width;
       this.width = parseInt(controlWidth);
+      this.min = parseInt(targetStyles.minHeight) || this.width;
 
       this.getOffsets();
       this.setOffsets();
@@ -367,12 +370,12 @@
       this.control.elem.onmousedown = function (event) {
         doc.onmousemove = function (event) {
 
-          if ((that.targetElem.height + event.movementY) > that.width) {
+          if ((that.targetElem.height + event.movementY) > that.min) {
             that.targetElem.height += event.movementY;
             that.top += event.movementY
           }
 
-          if ((that.targetElem.width + event.movementX) > that.width) {
+          if ((that.targetElem.width + event.movementX) > that.min) {
             that.targetElem.width += event.movementX;
             that.left += event.movementX;
           }
@@ -407,10 +410,14 @@
 
     ResizeControl.prototype.setSizes = function () {
       var that = this;
-      this.targetElem.attr('width', this.targetElem.width);
-      this.targetElem.attr('height', this.targetElem.height);
+      this.targetElem.elem.style.width = this.targetElem.width + 'px';
+      this.targetElem.elem.style.height = this.targetElem.height + 'px';
 
-      ranges.collection.forEach(function(item) {
+      if (!ranges) {
+        return;
+      }
+
+      ranges.collection.forEach(function (item) {
         item.input.elem.value = that.targetElem[item.valName];
         item.title.html(item.valName + ': ' + that.targetElem[item.valName]);
       });
@@ -419,10 +426,10 @@
     //------------------------------
 
     ResizeControl.prototype.updateOffsets = function () {
-        this.targetElem.width = +this.targetElem.attr('width');
-        this.targetElem.height = +this.targetElem.attr('height');
-        this.getOffsets();
-        this.setOffsets();
+      this.targetElem.width = +this.targetElem.attr('width');
+      this.targetElem.height = +this.targetElem.attr('height');
+      this.getOffsets();
+      this.setOffsets();
     }
 
     //------------------------------
@@ -452,18 +459,24 @@
 
       //------------------------------
 
-      ranges = config.inputs.ranges;
-      rangesHolder;
+      if (config.inputs) {
+        if (config.inputs.ranges) {
+          ranges = config.inputs.ranges;
+          rangesHolder;
+        }
 
-      buttons = config.inputs.buttons;
-      buttonsHolder;
+        if (config.inputs.buttons) {
+          buttons = config.inputs.buttons;
+          buttonsHolder;
+        }
 
-      if (buttons) {
-        addButtons();
-      }
-
-      if (ranges) {
-        addRanges();
+        // Order is important
+        if (buttons) {
+          addButtons();
+        }
+        if (ranges) {
+          addRanges();
+        }
       }
 
       if (config.resizeable) {
