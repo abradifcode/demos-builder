@@ -30,7 +30,7 @@
         <div class="demo">
           <div class="demo__content">
         
-            <svg class="svg svg--nosizes">
+            <svg class="svg svg--nosizes" width="300" height="150" viewBox="0 0 180 180">
                 <circle r="50" cx="50" cy="50"
                         fill="hsla(5, 100%,50%,.5)"></circle>
                 <circle r="50" cx="130" cy="50"
@@ -39,6 +39,9 @@
                         fill="hsla(90, 100%,50%,.5)"></circle>
                 <circle r="50" cx="130" cy="130"
                         fill="hsla(200, 100%,50%,.5)"></circle>
+        
+                <rect width="100%" height="100%" fill="none" stroke="royalblue"></rect>
+        
             </svg>
           </div>
         
@@ -61,20 +64,21 @@
     var $ = tinyLib;
     
     var config = {
-      demoContentLayout: 'both-ranges',
-      targetElem: $.get('.svg'),
+      demoContentLayout: 'svg-only',
+      targetElem: $.get( '.svg' ),
       resizeable: true,
     
-      inputs: {
+      _inputs: {
         ranges: {
           units: '',
+          resizeable: true,
     
           attrs: {
             type: 'range',
             min: 0,
             max: 500,
             step: 1,
-            value: 300,
+            value: 180,
           },
     
           list: [
@@ -84,9 +88,7 @@
             },
             {
               id: 'vert',
-              valName: 'height',
-              value: 150,
-              max: 300,
+              valName: 'height'
             }
           ]
         }

@@ -1,8 +1,47 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>patternUnits</title>
+    <title>Resize div</title>
     <link rel="stylesheet" href="./assets/css/styles.css">
+    <style>
+    .wrapper {
+      position: absolute;
+      width: 500px;
+      height: 300px;
+      min-height: 100px;
+    
+      display: flex;
+      flex-direction: column;
+      outline: 2px solid teal;
+    }
+    
+    .bg {
+      flex-grow: 1;
+      outline: 1px dashed #333;
+      background-repeat: no-repeat;
+      background-position: 50% 0;
+    }
+      .bg:last-child {
+        margin-top: 20px;
+      }
+    
+      .bg::before {
+        content: attr(data-title);
+        display: block;
+        margin-top: .5em;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    
+      .bg--viewBox {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 500 250'%3E%3Cpath d='M0,0 500,0 500,250 Z' fill='gold'/%3E%3C/svg%3E");
+      }
+    
+      .bg--PSAnone {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 500 250' preserveAspectRatio='none'%3E%3Cpath d='M0,0 500,0 500,250 Z' fill='gold'/%3E%3C/svg%3E");
+      }
+    
+    </style>
 </head>
 <body>
     <header class="header">
@@ -30,16 +69,14 @@
         <div class="demo">
           <div class="demo__content">
         
-            <svg class="svg svg--nosizes">
-                <circle r="50" cx="50" cy="50"
-                        fill="hsla(5, 100%,50%,.5)"></circle>
-                <circle r="50" cx="130" cy="50"
-                        fill="hsla(50, 100%,50%,.5)"></circle>
-                <circle r="50" cx="50" cy="130"
-                        fill="hsla(90, 100%,50%,.5)"></circle>
-                <circle r="50" cx="130" cy="130"
-                        fill="hsla(200, 100%,50%,.5)"></circle>
-            </svg>
+            <div class="wrapper">
+              <div class="bg bg--viewBox" data-title="viewBox only">
+              </div>
+        
+              <div class="bg bg--PSAnone" data-title="viewBox + preserveAspectRatio">
+              </div>
+        
+            </div>
           </div>
         
         </div>
@@ -61,36 +98,9 @@
     var $ = tinyLib;
     
     var config = {
-      demoContentLayout: 'both-ranges',
-      targetElem: $.get('.svg'),
-      resizeable: true,
-    
-      inputs: {
-        ranges: {
-          units: '',
-    
-          attrs: {
-            type: 'range',
-            min: 0,
-            max: 500,
-            step: 1,
-            value: 300,
-          },
-    
-          list: [
-            {
-              id: 'hor',
-              valName: 'width'
-            },
-            {
-              id: 'vert',
-              valName: 'height',
-              value: 150,
-              max: 300,
-            }
-          ]
-        }
-      }
+      demoContentLayout: 'svg-only',
+      targetElem: $.get( '.wrapper' ),
+      resizeable: true
     };
     
     demosBuilder.create();

@@ -460,7 +460,8 @@ HTML, BODY {
 
 BODY {
   background: linear-gradient(#EEE 1px, transparent 2px), linear-gradient(to right, #EEE 1px, transparent 2px);
-  background-size: 1em 1em; }
+  background-size: 1em 1em;
+  font-size: 16px; }
 
 /* Layout
 ------------------------------ */

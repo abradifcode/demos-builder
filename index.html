@@ -9,6 +9,7 @@
       <h1 class="title">Demos builder</h1>
     
       <nav class="nav">
+        <a class="nav__item" href="index.html">Mask width & height</a>
         <a class="nav__item" href="mask-coords.html">maskContentUnits</a>
         <a class="nav__item" href="grad-transform.html">Gradient Transform</a>
         <a class="nav__item" href="grad-transform-rotate.html">Gradient Rotate</a>
@@ -18,7 +19,9 @@
         <a class="nav__item" href="pattern-units-px.html">Pattern Units px</a>
         <a class="nav__item" href="pattern-content-units.html">Pattern Content Units</a>
         <a class="nav__item" href="svg-width-height.html">SVG Width & Height</a>
-        <a class="nav__item" href="svg-width-height-viewbox.html">SVG Width, Height & viewBox</a>
+        <a class="nav__item" href="svg-resize-viewbox.html">Resize viewBox</a>
+        <a class="nav__item" href="svg-resize-only.html">SVG resize only</a>
+        <a class="nav__item" href="resize-div.html">Resize div</a>
       </nav>
     </header>
     
@@ -88,6 +91,51 @@
 
     <script src="./assets/js/tinylib/tinylib.js"></script>
     <script src="./assets/js/demos-builder.js"></script>
-    <script src="./assets/js/config.js"></script>
+    <script>
+    "use strict";
+    
+    var $ = tinyLib;
+    
+    var config = {
+      demoContentLayout: 'both-ranges',
+      targetElem: $.get( '#mask' ),
+    
+      inputs: {
+        ranges: {
+          units: '%',
+    
+          attrs: {
+            type: 'range',
+            min: 0,
+            max: 100,
+            step: 1,
+            value: 50,
+          },
+    
+          list: [
+            {
+              id: 'hor',
+              valName: 'width'
+            },
+            {
+              id: 'vert',
+              valName: 'height'
+            }
+          ]
+        },
+    
+        buttons: {
+          prop: 'maskUnits',
+          list: [ 'objectBoundingBox', 'userSpaceOnUse' ],
+          default: 'userSpaceOnUse',
+          current: null,
+          currentClass: 'button--current'
+        }
+      }
+    };
+    
+    demosBuilder.create();
+    
+    </script>
 </body>
 </html>
