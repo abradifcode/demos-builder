@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>patternUnits</title>
+    <link rel="stylesheet" href="./assets/css/styles.css">
+</head>
+<body>
+    <header class="header">
+      <h1 class="title">Demos builder</h1>
+    
+      <nav class="nav">
+        <a class="nav__item" href="index.html">Mask width & height</a>
+        <a class="nav__item" href="mask-coords.html">maskContentUnits</a>
+        <a class="nav__item" href="grad-transform.html">Gradient Transform</a>
+        <a class="nav__item" href="grad-transform-rotate.html">Gradient Rotate</a>
+        <a class="nav__item" href="grad-radius.html">Gradient Radius</a>
+    
+        <a class="nav__item" href="pattern-units.html">Pattern Units</a>
+        <a class="nav__item" href="pattern-units-px.html">Pattern Units px</a>
+        <a class="nav__item" href="pattern-content-units.html">Pattern Content Units</a>
+        <a class="nav__item" href="svg-width-height.html">SVG Width & Height</a>
+        <a class="nav__item" href="svg-resize-viewbox.html">Resize viewBox</a>
+        <a class="nav__item" href="svg-resize-only.html">SVG resize only</a>
+        <a class="nav__item" href="resize-div.html">Resize div</a>
+      </nav>
+    </header>
+    
+    <div class="container">
+      <main class="main">
+        <div class="demo">
+          <div class="demo__content">
+        
+            <svg class="svg svg--nosizes" width="300" height="150" viewBox="0 0 180 180">
+                <circle r="50" cx="50" cy="50"
+                        fill="hsla(5, 100%,50%,.5)"></circle>
+                <circle r="50" cx="130" cy="50"
+                        fill="hsla(50, 100%,50%,.5)"></circle>
+                <circle r="50" cx="50" cy="130"
+                        fill="hsla(90, 100%,50%,.5)"></circle>
+                <circle r="50" cx="130" cy="130"
+                        fill="hsla(200, 100%,50%,.5)"></circle>
+        
+                <rect width="100%" height="100%" fill="none" stroke="royalblue"></rect>
+        
+            </svg>
+          </div>
+        
+        </div>
+        
+      </main>
+    </div>
+
+    <script src="./assets/js/tinylib/tinylib.js"></script>
+    <script src="./assets/js/demos-builder.js"></script>
+    <script>
+    // Required
+    // 1. tinyLib:
+    // https://codepen.io/yoksel/pen/KMgMvw
+    // 2. demosBuilder:
+    // https://codepen.io/yoksel/pen/JKRKyy
+    
+    console.clear();
+    
+    var $ = tinyLib;
+    
+    var config = {
+      demoContentLayout: 'svg-only',
+      targetElem: $.get( '.svg' ),
+      resizeable: true,
+    
+      _inputs: {
+        ranges: {
+          units: '',
+          resizeable: true,
+    
+          attrs: {
+            type: 'range',
+            min: 0,
+            max: 500,
+            step: 1,
+            value: 180,
+          },
+    
+          list: [
+            {
+              id: 'hor',
+              valName: 'width'
+            },
+            {
+              id: 'vert',
+              valName: 'height'
+            }
+          ]
+        }
+      }
+    };
+    
+    demosBuilder.create();
+    
+    </script>
+</body>
+</html>
