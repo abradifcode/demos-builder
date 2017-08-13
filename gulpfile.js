@@ -83,8 +83,7 @@ gulp.task('serve', ['sass', 'js'], function () {
   });
 
   gulp.watch(['src/**/*.scss'], ['sass']);
-  gulp.watch(['src/**/*.js'], ['include']);
-  gulp.watch(['src/**/*.html'], ['include']);
+  gulp.watch(['src/**/*.js', 'src/**/*.html', 'src/**/*.css'], ['include']);
 });
 
 // CLEAN BUILD
