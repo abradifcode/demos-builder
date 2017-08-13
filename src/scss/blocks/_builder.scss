@@ -208,8 +208,8 @@ $control-size: 18px;
   }
 
   &::after {
-    width: 80%;
-    height: 80%;
+    width: 15px;
+    height: 15px;
     opacity: .5;
     background: linear-gradient(to left top,
       transparent 1px,
@@ -218,7 +218,6 @@ $control-size: 18px;
       white 4px, white 5px,
       transparent 5px
     );
-    background-size: cover;
   }
 
   &:focus::after,
