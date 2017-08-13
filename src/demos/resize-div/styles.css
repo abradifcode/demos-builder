@@ -1,0 +1,36 @@
+.wrapper {
+  position: absolute;
+  width: 500px;
+  height: 300px;
+  min-height: 100px;
+
+  display: flex;
+  flex-direction: column;
+  outline: 2px solid teal;
+}
+
+.bg {
+  flex-grow: 1;
+  outline: 1px dashed #333;
+  background-repeat: no-repeat;
+  background-position: 50% 0;
+}
+  .bg:last-child {
+    margin-top: 20px;
+  }
+
+  .bg::before {
+    content: attr(data-title);
+    display: block;
+    margin-top: .5em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .bg--viewBox {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 500 250'%3E%3Cpath d='M0,0 500,0 500,250 Z' fill='gold'/%3E%3C/svg%3E");
+  }
+
+  .bg--PSAnone {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 500 250' preserveAspectRatio='none'%3E%3Cpath d='M0,0 500,0 500,250 Z' fill='gold'/%3E%3C/svg%3E");
+  }
