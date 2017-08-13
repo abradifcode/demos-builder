@@ -345,8 +345,8 @@
       var that = this;
       this.targetElem = config.targetElem;
       var targetStyles = getComputedStyle(this.targetElem.elem);
-      this.targetElem.width = parseInt(targetStyles.width);
-      this.targetElem.height = parseInt(targetStyles.height);
+      this.targetElem.width = +this.targetElem.attr('width') || parseInt(targetStyles.width);
+      this.targetElem.height = +this.targetElem.attr('height') || parseInt(targetStyles.height);
       this.targetElem.top = parseInt(targetStyles.top) || 0;
       this.targetElem.left = parseInt(targetStyles.left) || 0;
 
@@ -410,8 +410,20 @@
 
     ResizeControl.prototype.setSizes = function () {
       var that = this;
-      this.targetElem.elem.style.width = this.targetElem.width + 'px';
-      this.targetElem.elem.style.height = this.targetElem.height + 'px';
+
+      if (this.targetElem.attr('width')) {
+        this.targetElem.attr('width', this.targetElem.width);
+      }
+      else {
+        this.targetElem.elem.style.width = this.targetElem.width + 'px';
+      }
+
+      if (this.targetElem.attr('height')) {
+        this.targetElem.attr('height', this.targetElem.height);
+      }
+      else {
+        this.targetElem.elem.style.height = this.targetElem.height + 'px';
+      }
 
       if (!ranges) {
         return;

@@ -592,10 +592,9 @@ BODY {
     border: 9px solid transparent;
     border-color: transparent currentColor currentColor transparent; }
   .resize-control::after {
-    width: 80%;
-    height: 80%;
+    width: 15px;
+    height: 15px;
     opacity: .5;
-    background: linear-gradient(to left top, transparent 1px, white 1px, white 2px, transparent 2px, transparent 4px, white 4px, white 5px, transparent 5px);
-    background-size: cover; }
+    background: linear-gradient(to left top, transparent 1px, white 1px, white 2px, transparent 2px, transparent 4px, white 4px, white 5px, transparent 5px); }
   .resize-control:focus::after, .resize-control:hover::after {
     opacity: .75; }
