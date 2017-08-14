@@ -230,7 +230,10 @@
       ranges.elems = {};
 
       rangesHolder = $.create('div')
-        .addClass(['controls', 'controls--ranges']);
+        .addClass([
+          'controls',
+          'controls--ranges'
+        ]);
 
       demoContent.prepend(rangesHolder);
 
@@ -269,8 +272,13 @@
     //------------------------------
 
     function addButtons() {
+
       buttonsHolder = $.create('div')
-        .addClass(['controls', 'controls--buttons']);
+        .addClass([
+          'controls',
+          'controls--buttons',
+          'controls--' + buttons.prop
+        ]);
 
       demo.prepend(buttonsHolder);
 
@@ -413,15 +421,13 @@
 
       if (this.targetElem.attr('width')) {
         this.targetElem.attr('width', this.targetElem.width);
-      }
-      else {
+      } else {
         this.targetElem.elem.style.width = this.targetElem.width + 'px';
       }
 
       if (this.targetElem.attr('height')) {
         this.targetElem.attr('height', this.targetElem.height);
-      }
-      else {
+      } else {
         this.targetElem.elem.style.height = this.targetElem.height + 'px';
       }
 
