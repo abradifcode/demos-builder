@@ -49,6 +49,10 @@ BODY {
   text-align: center;
   white-space: nowrap;
   font: 16px/1.4 Arial, sans-serif;
+
+  &--buttons-left {
+    display: flex;
+  }
 }
 
 .demo__content {
@@ -72,6 +76,11 @@ BODY {
     width: $svgW + $controlH + $space;
     height: $svgH + $controlH + $space;
   }
+
+  &--square {
+    width: $svgH;
+    height: $svgH;
+  }
 }
 
 /* SVG
@@ -91,6 +100,16 @@ BODY {
     height: auto;
     left: $controlH + $space;
     top: $controlH + $space;
+  }
+  .demo__content--svg-only & {
+    left: 0;
+    top: 0;
+  }
+  .demo__content--square & {
+    left: 0;
+    top: 0;
+    width: $svgH;
+    height: $svgH;
   }
 }
 

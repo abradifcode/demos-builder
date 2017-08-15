@@ -465,14 +465,24 @@
       }
 
       // To keep all available classes
+      var demoClasses = {
+        'buttons-left': 'buttons-left'
+      };
+
       var demoContentClasses = {
         'svg-only': 'svg-only',
         'left-range': 'left-range',
         'top-range': 'top-range',
-        'both-ranges': 'both-ranges'
+        'both-ranges': 'both-ranges',
+        'square': 'square'
       };
 
       demo = $.get('.demo');
+
+      if (config.demoLayout) {
+        demo.addClass('demo--' + demoClasses[config.demoLayout]);
+      }
+
       demoContent = $.get('.demo__content')
         .addClass('demo__content--' + demoContentClasses[config.demoContentLayout]);
 
