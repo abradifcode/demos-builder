@@ -22,8 +22,8 @@ var config = {
 
       attrs: {
         type: 'range',
-        min: 0,
-        max: 500,
+        min: 50,
+        max: 300,
         step: 1,
         value: 180,
       },

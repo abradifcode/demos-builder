@@ -146,6 +146,17 @@ BODY {
     }
   }
 
+  .controls--viewBox {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    margin-right: 20px;
+
+    &::before {
+      content: none;
+    }
+  }
+
 /* Buttons
 ------------------------------ */
 
@@ -164,10 +175,16 @@ BODY {
     background: crimson;
   }
 
-  .controls--preserveAspectRatio & {
+  .controls--preserveAspectRatio &,
+  .controls--viewBox & {
     margin-left: 0;
-    margin-top: .5em;
+  }
+  .controls--preserveAspectRatio & {
     flex-basis: 32%;
+    margin-top: .5em;
+  }
+  .controls--viewBox & {
+    margin-top: 1em;
   }
 }
 
