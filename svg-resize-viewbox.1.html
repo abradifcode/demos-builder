@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>SVG width & height</title>
+    <title>Resize viewBox</title>
     <link rel="stylesheet" href="./assets/css/styles.css">
 </head>
 <body>
@@ -21,11 +21,10 @@
         <a class="nav__item" href="pattern-content-units.html">Pattern Content Units</a>
         <!-- resize -->
         <a class="nav__item" href="svg-width-height.html">SVG Width & Height</a>
-        <a class="nav__item" href="svg-resize-viewbox.html">Resize ViewBox</a>
-        <a class="nav__item" href="svg-viewbox-presets.html">ViewBox Presets</a>
-        <a class="nav__item" href="svg-resize-only.html">SVG Resize Only</a>
+        <a class="nav__item" href="svg-resize-viewbox.html">Resize viewBox</a>
+        <a class="nav__item" href="svg-resize-only.html">SVG resize only</a>
         <a class="nav__item" href="svg-psa.html">PreserveAspectRatio</a>
-        <a class="nav__item" href="resize-div.html">Resize Div</a>
+        <a class="nav__item" href="resize-div.html">Resize div</a>
       </nav>
     </header>
     
@@ -34,7 +33,9 @@
         <div class="demo">
           <div class="demo__content">
         
-            <svg class="svg svg--nosizes">
+            <svg class="svg svg--nosizes"
+                 width="300" height="300"
+                 viewBox="0 0 180 180">
                 <circle r="50" cx="50" cy="50"
                         fill="hsla(5, 100%,50%,.5)"></circle>
                 <circle r="50" cx="130" cy="50"
@@ -43,6 +44,8 @@
                         fill="hsla(90, 100%,50%,.5)"></circle>
                 <circle r="50" cx="130" cy="130"
                         fill="hsla(200, 100%,50%,.5)"></circle>
+        
+                <rect width="100%" height="100%" fill="none" stroke="royalblue"></rect>
             </svg>
           </div>
         
@@ -67,18 +70,21 @@
     var config = {
       demoContentLayout: 'both-ranges',
       targetElem: $.get('.svg'),
-      resizeable: true,
     
       inputs: {
         ranges: {
           units: '',
+          targetAttr: 'viewBox',
+          prefix: 'viewBox',
+          isTied: true,
+          keepViewBoxRatio: true,
     
           attrs: {
             type: 'range',
-            min: 0,
-            max: 500,
+            min: 50,
+            max: 300,
             step: 1,
-            value: 300,
+            value: 180,
           },
     
           list: [
@@ -88,9 +94,7 @@
             },
             {
               id: 'vert',
-              valName: 'height',
-              value: 150,
-              max: 300,
+              valName: 'height'
             }
           ]
         }

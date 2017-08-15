@@ -459,6 +459,8 @@ HTML, BODY {
   height: 100%; }
 
 BODY {
+  margin: 0;
+  padding: 0;
   background: linear-gradient(#EEE 1px, transparent 2px), linear-gradient(to right, #EEE 1px, transparent 2px);
   background-size: 1em 1em;
   font-size: 16px; }
@@ -473,6 +475,8 @@ BODY {
   text-align: center;
   white-space: nowrap;
   font: 16px/1.4 Arial, sans-serif; }
+  .demo--buttons-left {
+    display: flex; }
 
 .demo__content {
   position: relative;
@@ -487,6 +491,9 @@ BODY {
   .demo__content--both-ranges {
     width: 550px;
     height: 350px; }
+  .demo__content--square {
+    width: 300px;
+    height: 300px; }
 
 /* SVG
 ------------------------------ */
@@ -503,6 +510,14 @@ BODY {
     height: auto;
     left: 50px;
     top: 50px; }
+  .demo__content--svg-only .svg {
+    left: 0;
+    top: 0; }
+  .demo__content--square .svg {
+    left: 0;
+    top: 0;
+    width: 300px;
+    height: 300px; }
 
 /* Controls
 ------------------------------ */
@@ -532,6 +547,14 @@ BODY {
   .controls--preserveAspectRatio .controls__title {
     flex-basis: 100%; }
 
+.controls--viewBox {
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  margin-right: 20px; }
+  .controls--viewBox::before {
+    content: none; }
+
 /* Buttons
 ------------------------------ */
 .button {
@@ -546,10 +569,13 @@ BODY {
   color: #FFF; }
   .button--current {
     background: crimson; }
+  .controls--preserveAspectRatio .button, .controls--viewBox .button {
+    margin-left: 0; }
   .controls--preserveAspectRatio .button {
-    margin-left: 0;
-    margin-top: .5em;
-    flex-basis: 32%; }
+    flex-basis: 32%;
+    margin-top: .5em; }
+  .controls--viewBox .button {
+    margin-top: 1em; }
 
 /* Ranges
 ------------------------------ */
