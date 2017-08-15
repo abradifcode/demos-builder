@@ -10,13 +10,15 @@ var $ = tinyLib;
 
 var config = {
   demoContentLayout: 'both-ranges',
-  targetElem: $.get( '.svg' ),
+  targetElem: $.get('.svg'),
 
   inputs: {
     ranges: {
       units: '',
       targetAttr: 'viewBox',
       prefix: 'viewBox',
+      isTied: true,
+      keepViewBoxRatio: true,
 
       attrs: {
         type: 'range',

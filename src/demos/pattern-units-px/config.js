@@ -8,7 +8,6 @@ var config = {
 
   inputs: {
     ranges: {
-      targetElem: $.get('#pattern'),
       isTied: true,
       keepViewBoxRatio: true,
       // units: '%',
