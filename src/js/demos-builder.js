@@ -238,7 +238,8 @@
       demoContent.prepend(rangesHolder);
 
       if (ranges.keepViewBoxRatio) {
-        var viewBoxValues = ranges.targetElem.elem.viewBox.baseVal;
+        var targetElem = ranges.targetElem || config.targetElem;
+        var viewBoxValues = targetElem.elem.viewBox.baseVal;
         ranges.ratio = viewBoxValues.width / viewBoxValues.height;
       }
 
